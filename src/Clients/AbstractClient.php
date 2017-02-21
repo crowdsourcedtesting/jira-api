@@ -18,12 +18,14 @@ abstract class AbstractClient
      */
     public function __construct($domain, $username, $password)
     {
-        $this->client = new GuzzleClient(array(
-            'base_url' => filter_var($domain, FILTER_VALIDATE_URL) ? $domain : sprintf('https://%s.atlassian.net/rest/api/latest/', $domain),
-            'defaults' => array(
-                'auth' => array($username, $password)
-            ))
-        );
+        $this->client = new GuzzleClient([
+            'base_uri' => filter_var($domain, FILTER_VALIDATE_URL)
+                ? $domain
+                : sprintf('https://%s.atlassian.net/rest/api/latest/', $domain),
+            'defaults' => [
+                'auth' => [$username, $password]
+            ]
+        ]);
     }
 
     /**
@@ -52,9 +54,9 @@ abstract class AbstractClient
      */
     public function postRequest($uri, array $data = null)
     {
-        return $this->getClient()->post($uri, array(
+        return $this->getClient()->post($uri, [
             'json' => $this->createBody($data)
-        ));
+        ]);
     }
 
     /**
@@ -66,8 +68,11 @@ abstract class AbstractClient
     public function postFile($uri, $file = null)
     {
         return $this->getClient()->post($uri, [
-            'headers' => ['X-Atlassian-Token' => 'no-check'],
-            'body' => ['file' => $file]
+            'headers'   => ['X-Atlassian-Token' => 'no-check'],
+            'multipart' => [
+                'name'     => 'file',
+                'contents' => $file
+            ]
         ]);
     }
 
@@ -79,9 +84,9 @@ abstract class AbstractClient
      */
     public function putRequest($uri, array $data = null)
     {
-        return $this->getClient()->put($uri, array(
+        return $this->getClient()->put($uri, [
             'json' => $this->createBody($data)
-        ));
+        ]);
     }
 
     /**
@@ -101,7 +106,7 @@ abstract class AbstractClient
      */
     protected function createBody(array $data = null)
     {
-        return $data ?: array();
+        return $data ?: [];
     }
 
     /**
@@ -113,4 +118,5 @@ abstract class AbstractClient
     {
         return $data ? http_build_query($data) : '';
     }
+
 }
