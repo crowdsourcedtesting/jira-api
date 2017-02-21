@@ -6,6 +6,7 @@ use JiraApi\Clients\AbstractClient;
 
 class WorkflowClient extends AbstractClient
 {
+
     /**
      * Returns all workflows
      *
@@ -17,4 +18,5 @@ class WorkflowClient extends AbstractClient
     {
         return $this->getRequest('workflow');
     }
+
 }

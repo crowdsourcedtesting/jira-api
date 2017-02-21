@@ -1,28 +1,26 @@
 {
-    "name": "alexkovalevych/jira-api",
-    "type": "library",
+    "name"       : "alexkovalevych/jira-api",
+    "type"       : "library",
     "description": "Jira api php library",
-    "keywords": [
+    "keywords"   : [
         "api", "git", "github", "jira", "pull request", "contributor", "community", "package"
     ],
     "license": "MIT",
     "authors": [
         {
-            "name": "Alex Kovalevych",
+            "name" : "Alex Kovalevych",
             "email": "alexkovalevych@gmail.com"
-        },
-        {
-            "name": "Luis Cordova",
+        }, {
+            "name" : "Luis Cordova",
             "email": "cordoval@gmail.com"
-        },
-        {
-            "name": "Carlos Yakimov",
+        }, {
+            "name" : "Carlos Yakimov",
             "email": "logicode.ve@gmail.com"
         }
     ],
     "require": {
-        "php": ">=5.4",
-        "guzzlehttp/guzzle": "5.0.*@dev"
+        "php"              : ">=5.4",
+        "guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.1.0"

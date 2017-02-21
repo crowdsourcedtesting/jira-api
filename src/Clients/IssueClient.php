@@ -18,9 +18,9 @@ class IssueClient extends AbstractClient
      */
     public function get($idOrKey, array $fields = null)
     {
-        $parameters = $fields ? sprintf('?%s', $this->createUriParameters(array(
-            'fields' => implode(',', $fields)
-        ))) : '';
+        $parameters = $fields
+            ? sprintf('?%s', $this->createUriParameters(['fields' => implode(',', $fields)]))
+            : '';
 
         return $this->getRequest(sprintf('issue/%s%s', $idOrKey, $parameters));
     }
@@ -83,8 +83,10 @@ class IssueClient extends AbstractClient
      */
     public function createAttachment($idOrKey, $fileHandle)
     {
-        if(gettype($fileHandle) != 'resource') {
-            throw new \RuntimeException('createAttachment() expects parameter 2 to be resource, '.gettype($fileHandle).' given');
+        if (gettype($fileHandle) != 'resource') {
+            throw new \RuntimeException(
+                'createAttachment() expects parameter 2 to be resource, '. gettype($fileHandle) .' given'
+            );
         }
 
         return $this->postFile(sprintf('issue/%s/attachments', $idOrKey), $fileHandle);
@@ -208,11 +210,11 @@ class IssueClient extends AbstractClient
      */
     public function createWorklog($idOrKey, array $data, $adjustEstimate = null, $newEstimate = null, $reduceBy = null)
     {
-        $parameters = http_build_query(array(
+        $parameters = http_build_query([
             'adjustEstimate' => $adjustEstimate,
             'newEstimate'    => $newEstimate,
-            'reduceBy'       => $reduceBy,
-        ));
+            'reduceBy'       => $reduceBy
+        ]);
 
         if ($parameters) {
             $parameters = sprintf('?%s', $parameters);
@@ -251,10 +253,10 @@ class IssueClient extends AbstractClient
      */
     public function updateWorklog($idOrKey, $worklogId, array $data, $adjustEstimate = null, $newEstimate = null)
     {
-        $parameters = http_build_query(array(
+        $parameters = http_build_query([
             'adjustEstimate' => $adjustEstimate,
-            'newEstimate'    => $newEstimate,
-        ));
+            'newEstimate'    => $newEstimate
+        ]);
 
         if ($parameters) {
             $parameters = sprintf('?%s', $parameters);
@@ -278,11 +280,11 @@ class IssueClient extends AbstractClient
      */
     public function deleteWorklog($idOrKey, $worklogId, $adjustEstimate = null, $newEstimate = null, $increaseBy = null)
     {
-        $parameters = http_build_query(array(
+        $parameters = http_build_query([
             'adjustEstimate' => $adjustEstimate,
             'newEstimate'    => $newEstimate,
-            'increaseBy'     => $increaseBy,
-        ));
+            'increaseBy'     => $increaseBy
+        ]);
 
         if ($parameters) {
             $parameters = sprintf('?%s', $parameters);
@@ -290,4 +292,5 @@ class IssueClient extends AbstractClient
 
         return $this->deleteRequest(sprintf('issue/%s/worklog/%s%s', $idOrKey, $worklogId, $parameters));
     }
+
 }
