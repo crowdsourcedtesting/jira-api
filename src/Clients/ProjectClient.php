@@ -59,4 +59,5 @@ class ProjectClient extends AbstractClient
     {
         return $this->getRequest(sprintf('project/%s/statuses', $idOrKey));
     }
+
 }
