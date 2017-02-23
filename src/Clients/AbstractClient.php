@@ -22,9 +22,7 @@ abstract class AbstractClient
             'base_uri' => filter_var($domain, FILTER_VALIDATE_URL)
                 ? $domain
                 : sprintf('https://%s.atlassian.net/rest/api/latest/', $domain),
-            'defaults' => [
-                'auth' => [$username, $password]
-            ]
+            'auth' => [$username, $password]
         ]);
     }
 
